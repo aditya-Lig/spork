@@ -10,8 +10,8 @@ import winsound
 a = ["calix"]
 
 
-#freq = 2500
-#duration = 80
+freq = 2500
+duration = 80
 
 en = pyttsx.init()
 voices= en.getProperty('voices')
@@ -24,7 +24,7 @@ def speak(audio):
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-       # winsound.Beep(freq, duration)
+        winsound.Beep(freq, duration)
         print("Listening...")
         r.pause_threshold=1
         audio=r.listen(source)
