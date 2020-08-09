@@ -7,7 +7,7 @@ import datetime
 import wikipedia
 import winsound
 
-a = ["calix"]
+a =('callux')
 
 
 freq = 2500
@@ -31,7 +31,7 @@ def takeCommand():
 
         try:
             print("Recognizing...")
-            query = r.recognize_google(audio,language='en-in')
+            query = r.recognize_google(audio,language='en')
             print('you said :'+ query + '\n')
 
         except Exception as e :   
@@ -47,14 +47,15 @@ if __name__=="__main__":
     while True:
         query = takeCommand().lower()
     #NORMAL CONVERSATIONS AS COMMAND
-        if 'hello' in query or 'hi' in query or 'hello there' in query or 'hi there' in query:
+        if f'hello {a}' in query or 'hi' in query or 'hello there' in query or 'hi there' in query:
             speak(" Hello Sir,how may i help you")
             print(speak)
 
         elif 'how are you' in query:
             speak("sir, i am always fine")
 
-
+        elif 'who i am' in query or 'who am i' in query:
+            speak("sir, you are Aditya Kumar Mahalik and my creator.")
         elif 'what are you doing' in query:
             speak("sir i am doing your work") 
 
@@ -66,7 +67,7 @@ if __name__=="__main__":
                 speak(f"Sir, the time is {strTime}")        
 
     #PC INTERACTIONS AS COMMAND 
-        elif 'open google' in query:
+        elif 'google' in query:
             speak ('opening google')
             results = webbrowser.open("google.com")
             speak(results) 
@@ -109,7 +110,7 @@ if __name__=="__main__":
             speak(results)   
 
 
-        elif 'play music' in query:
+        elif f'{a}play music' in query:
             speak('playing music')
             music_dir = 'D:\\Albums'
             songs = os.listdir(music_dir)
@@ -164,8 +165,8 @@ if __name__=="__main__":
                     speak("your infection risk is moderate.Please remember to stay quarantined for 14 days after your travel.While you are feeling absolutely healthy and kindly inform to nearest hospital. Thank you for this assessment.")
 
                 elif choices == 'no':
-                    print("your symptoms are saying that you have normal fever and for more safty you need to self quaramtine for 14 days and take a pill of paracetamol.")
-                    speak("your symptoms are saying that you have normal fever and for more safty you need to self quaramtine for 14 days and take a pill of paracetamol.")
+                    print("your symptoms are saying that you have normal fever and for more safty you need to self quaramtine for 14 days and take a pill of paracetamol.Thank you for this assessment.")
+                    speak("your symptoms are saying that you have normal fever and for more safty you need to self quaramtine for 14 days and take a pill of paracetamol.Thank you for this assessment.")
                 
                 elif choices == 'non of the above':
                     print("have you traveled anywhere internationally in the 28-45 days")
@@ -178,6 +179,10 @@ if __name__=="__main__":
                 #     print(" yes \n no")    
 
                 
-                elif 'close checker':
+                elif choices =='close checker':
                     speak("closing checker")
-                    break    
+                    break  
+
+
+        #PUTTING INTERNET SPEED CHECKER
+                  
