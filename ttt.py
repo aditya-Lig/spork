@@ -1,4 +1,4 @@
-import pyttsx
+import pyttsx3
 import speech_recognition as sr
 import os
 import webbrowser
@@ -6,20 +6,23 @@ import smtplib
 import datetime
 import wikipedia
 import winsound
+import schedule
+import time
 
-a =('callux')
+a =('calix')
+
 
 
 freq = 2500
 duration = 80
 
-en = pyttsx.init()
-voices= en.getProperty('voices')
-en.setProperty('voice',voices[0].id)
+engine = pyttsx3.init('sapi5')
+voices= engine.getProperty('voices')
+engine.setProperty('voice',voices[0].id)
 
 def speak(audio):
-    en.say(audio)
-    en.runAndWait()
+    engine.say(audio)
+    engine.runAndWait()
 
 def takeCommand():
     r = sr.Recognizer()
@@ -39,7 +42,21 @@ def takeCommand():
             print("Say that again please...")  
             return "None"
         return query     
+def sendEmail(to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('rontprince@gmail.com', 'Prince@333')
+    server.sendmail('rontprince@gmail.com', to, f"Subject: Testing\n{content}",)
+    server.close()
 
+def fixMeeting():
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('rontprince@gmail.com', 'Prince@333')
+    server.sendmail('rontprince@gmail.com', to, f"Subject: Testing\n{content}",)
+    server.close()
 
 
 if __name__=="__main__":
@@ -110,7 +127,7 @@ if __name__=="__main__":
             speak(results)   
 
 
-        elif f'{a}play music' in query:
+        elif 'play music' in query:
             speak('playing music')
             music_dir = 'D:\\Albums'
             songs = os.listdir(music_dir)
@@ -137,6 +154,36 @@ if __name__=="__main__":
         elif 'stop listening' in query:
             speak('ok sir')
             break    
+        
+    # SEND A EMAIL
+
+        elif 'send email' in query:
+            try:
+                speak("what should i say?")
+                content = takeCommand()
+                to = "nilakantha603@gmail.com"
+                sendEmail(to, content)
+                speak("sir! your email has been sent")
+            except Exception as e: 
+                print(e)
+                speak("sorry sir, i am not able to sent your email")    
+
+    # ARRANGE A MEETING
+        
+        elif 'fix a meeting' in query:
+            speak("sir, what should i say?")
+            to = ["adityakumarmahalik@gmail.com","niteshp282000@gmail.com","tanmaymakode76@gmail.com"]
+            content = takeCommand()
+            try:
+                schedule.every(10).seconds.do(fixMeeting)
+                while 1:
+                    schedule.run_pending()
+                    time.sleep(1)
+            except Exception as e:
+                print(e)
+                speak("sorry sir! I am not able to fix the meeting")        
+
+ 
 
     #COVID19 CHECKER
 
